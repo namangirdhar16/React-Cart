@@ -26,13 +26,30 @@ class Cart extends React.Component{
             ]
         }
     }
+    handleIncQty = (product) => {
+        console.log("handle inc qty called!", product.title);
+        const {products} = this.state;
+        //const idx = products.findIndex((prod) => (prod.title === product.title && prod.price == prod.price));
+
+        //console.log(idx);
+        products[product.idx].qty += 1;
+        this.setState(products);
+
+    } 
+    handleDecQty = (product) => {
+        const {products} = this.state;
+        products[product.idx].qty = products[product.idx].qty > 0 ? products[product.idx].qty - 1 : 0;
+        this.setState(products);
+    }
     render() {
         const {products} = this.state;
         
         console.log(products);
         return (
             <div className = "cart">
-                {products.map(({qty, title, price}, idx) => <CartItem key = {idx} qty = {qty} title = {title} price = {price} />)}
+                {products.map(({qty, title, price}, idx) => 
+                
+                   <CartItem key = {idx} idx = {idx} qty = {qty} title = {title} price = {price} onIncQty = {this.handleIncQty} onDecQty = {this.handleDecQty} />)}
             </div>
         )
     }

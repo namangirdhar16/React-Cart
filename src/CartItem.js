@@ -58,6 +58,7 @@ class CartItem extends React.Component{
     }
     render() {
         const {price, title, qty} = this.props;
+        console.log(this.props);
         console.log("render");
         return (
             <div className="cart-item">
@@ -69,8 +70,8 @@ class CartItem extends React.Component{
                     <div style = {{color: "#777"}}>{title}</div>
                     <div style = {{color: "#777"}}>{qty}</div>
                     <div className="cart-item-actions">
-                        <img src = "https://cdn-icons-png.flaticon.com/512/54/54373.png" className = "action-icons" onClick = {this.decreaseQty}/>
-                        <img src = "https://cdn-icons-png.flaticon.com/512/983/983901.png" className = "action-icons" onClick = {this.increaseQty}/>
+                        <img src = "https://cdn-icons-png.flaticon.com/512/54/54373.png" className = "action-icons" onClick = {() => this.props.onDecQty(this.props)}/>
+                        <img src = "https://cdn-icons-png.flaticon.com/512/983/983901.png" className = "action-icons" onClick = {() => this.props.onIncQty(this.props)}/>
                         <img src = "https://cdn-icons-png.flaticon.com/512/1214/1214428.png" className = "action-icons" onClick = {this.deleteItem}/>
                     </div> 
                 </div>
