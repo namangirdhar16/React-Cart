@@ -9,9 +9,9 @@ const Cart = (props) => {
     console.log(products);
     return (
         <div className = "cart">
-            {products.map(({qty, title, price}, idx) => 
+            {products.map(({qty, title, img, price}, idx) => 
             
-                <CartItem key = {idx} idx = {idx} qty = {qty} title = {title} price = {price} onIncQty = {props.handleIncQty} onDecQty = {props.handleDecQty} onDelQty = {props.handleDelQty}/>)}
+                <CartItem key = {idx} idx = {idx} qty = {qty} title = {title} img = {img} price = {price} onIncQty = {props.handleIncQty} onDecQty = {props.handleDecQty} onDelQty = {props.handleDelQty}/>)}
         </div>
     )
     
