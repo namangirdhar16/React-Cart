@@ -12,9 +12,9 @@ class CartItem extends React.Component{
     }
     increaseQty = () => {
         const {qty} = this.state;
-        // this.setState({
-        //     ...this.state, qty: qty + 1
-        // })
+        this.setState({
+            ...this.state, qty: qty + 1
+        })
         // set state used in conventional way result in batching the calls and shallow merging
         // set state is asynchronous when it comes to use it in event handler function, in case of ajax requests or promises, it acts 
         // syncronously
@@ -36,12 +36,12 @@ class CartItem extends React.Component{
         //         qty: prevState.qty + 1,
         //     }
         // })
-        this.setState({
-            qty: qty + 1
-        })
-        this.setState({
-            qty: qty + 2
-        })
+        // this.setState({
+        //     qty: qty + 1
+        // })
+        // this.setState({
+        //     qty: qty + 2
+        // })
     }
     decreaseQty = () => {
         let {qty} = this.state;
@@ -57,7 +57,7 @@ class CartItem extends React.Component{
         })
     }
     render() {
-        const {price, title, qty} = this.state;
+        const {price, title, qty} = this.props;
         console.log("render");
         return (
             <div className="cart-item">
