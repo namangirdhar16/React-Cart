@@ -12,8 +12,35 @@ class CartItem extends React.Component{
     }
     increaseQty = () => {
         const {qty} = this.state;
+        // this.setState({
+        //     ...this.state, qty: qty + 1
+        // })
+        // set state used in conventional way result in batching the calls and shallow merging
+        // set state is asynchronous when it comes to use it in event handler function, in case of ajax requests or promises, it acts 
+        // syncronously
+        // in case of set state using prev state the prev state is updated after every call and the last call is shallow merged if there is 
+        // chaining of multiple set state calls
+
+        // this.setState((prevState) => {
+        //     return {
+        //         qty: prevState.qty + 1,
+        //     }
+        // })
+        // this.setState((prevState) => {
+        //     return {
+        //         qty: prevState.qty + 1,
+        //     }
+        // })
+        // this.setState((prevState) => {
+        //     return {
+        //         qty: prevState.qty + 1,
+        //     }
+        // })
         this.setState({
-            ...this.state, qty: qty + 1
+            qty: qty + 1
+        })
+        this.setState({
+            qty: qty + 2
         })
     }
     decreaseQty = () => {
@@ -31,6 +58,7 @@ class CartItem extends React.Component{
     }
     render() {
         const {price, title, qty} = this.state;
+        console.log("render");
         return (
             <div className="cart-item">
                 <div className="left-block">
@@ -42,8 +70,8 @@ class CartItem extends React.Component{
                     <div style = {{color: "#777"}}>{qty}</div>
                     <div className="cart-item-actions">
                         <img src = "https://cdn-icons-png.flaticon.com/512/54/54373.png" className = "action-icons" onClick = {this.decreaseQty}/>
-                        <img src = "https://cdn-icons.flaticon.com/png/128/3161/premium/3161837.png?token=exp=1637562318~hmac=e6727c7b1b6fac04d4b3e315224d7384" className = "action-icons" onClick = {this.increaseQty}/>
-                        <img src = "https://cdn-icons.flaticon.com/png/128/2581/premium/2581572.png?token=exp=1637562359~hmac=070c20ae03b7268bc0771e4116bff845" className = "action-icons" onClick = {this.deleteItem}/>
+                        <img src = "https://cdn-icons-png.flaticon.com/512/983/983901.png" className = "action-icons" onClick = {this.increaseQty}/>
+                        <img src = "https://cdn-icons-png.flaticon.com/512/1214/1214428.png" className = "action-icons" onClick = {this.deleteItem}/>
                     </div> 
                 </div>
                 
