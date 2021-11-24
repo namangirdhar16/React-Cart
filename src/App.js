@@ -1,35 +1,31 @@
-import React from 'react';
-import Cart from './Cart';
-import NavBar from './NavBar';
+import React from "react";
+import Cart from "./Cart";
+import NavBar from "./NavBar";
+import { db } from "./firebase-config";
+import { collection, getDocs } from "firebase/firestore";
 
 class App extends React.Component{
 
   constructor() {
       super();
       this.state = {
-          products: [
-              { 
-                  price: 1000,
-                  qty: 0,
-                  title: "abc",
-                  img: "https://images.unsplash.com/photo-1608322368442-2db3b4090724?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=440&q=80"
-              },
-              { 
-                  price: 1000,
-                  qty: 0,
-                  title: "abc2",
-                  img: "https://images.unsplash.com/photo-1616448199842-83fabbc09798?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8dmVoaWNsZSUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
-              },
-              { 
-                  price: 1000,
-                  qty: 0,
-                  title: "ab4c",
-                  img: "https://media.istockphoto.com/photos/aluminum-ball-in-midair-picture-id1142178898?b=1&k=20&m=1142178898&s=170667a&w=0&h=IAo4LFGXpA-ECNtEmQdQMMSz6TEo6lTz6CJvaklsEXs="
-              },
-              
-          ],
+          products: [],
           productCount: 0
       }
+  }
+  componentDidMount() {
+           console.log("hello");
+           const productsRef = collection(db, "Products")
+           const getUsers = async () => {
+             const data = await getDocs(productsRef);
+             const updatedProducts = (data.docs.map((doc) => (doc.data())));
+             
+             console.log(updatedProducts); 
+             this.setState({ products: updatedProducts }, () => {
+               console.log("done");
+             });
+           }
+           getUsers();
   }
     handleIncQty = (product) => {
       console.log("handle inc qty called!", product.title);
