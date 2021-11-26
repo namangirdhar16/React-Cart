@@ -22,19 +22,20 @@ class App extends React.Component{
                ...doc.data(), id: doc.id
              })), loading: false})
            })
+          return;
           //  console.log(products);
           //  console.log("hello");
            
-          //  const getProducts = async () => {
-          //    const data = await getDocs(productsRef);
-          //    const updatedProducts = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
-          //    console.log(updatedProducts); 
-          //    this.setState({ products: updatedProducts, loading: false}, () => {
-          //      console.log("done");
+           const getProducts = async () => {
+             const data = await getDocs(productsRef);
+             const updatedProducts = data.docs.map((doc) => ({...doc.data(), id: doc.id}));
+             console.log(updatedProducts); 
+             this.setState({ products: updatedProducts, loading: false}, () => {
+               console.log("done");
                
-          //    });
-          //  }
-          //  getProducts();
+             });
+           }
+           getProducts();
   }
     handleIncQty = async (product) => {
       // console.log("handle inc qty called!", product.title);
@@ -55,11 +56,11 @@ class App extends React.Component{
         this.setState({...products, productCount});
     }
     handleDelQty = (product) => {
-        const {products, productCount} = this.state;
-      
-        delete products[product.idx];
-        this.setState({
-          ...products});
+      // console.log("del products");
+
+          const docRef = doc(db, "products", product.id);
+          deleteDoc(docRef).then(() => console.log("deleted successfully!")).catch((err) => console.log(err));
+          return;
     }
     getTotalVal = () => {
       let total = 0;
@@ -73,9 +74,7 @@ class App extends React.Component{
       const productsRef = collection(db, "Products")
         await addDoc(productsRef, { title: "glass", qty: 1, price: 10000});
     }
-    updateProduct = async() => {
-       
-    }
+    
   render() {
       return (
         <div className="App">
